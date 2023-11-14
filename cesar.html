@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decifrador de Cifra de César</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Decifrador de Cifra de César</h2>
+
+    <label for="cifraInput">Mensagem Cifrada:</label>
+    <input type="text" id="cifraInput" placeholder="Insira a mensagem cifrada">
+
+    <label for="deslocamentoInput">Deslocamento:</label>
+    <input type="number" id="deslocamentoInput" placeholder="Insira o deslocamento">
+
+    <button onclick="decifrarCesar()">Decifrar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        function decifrarCesar() {
+            var cifraInput = document.getElementById("cifraInput").value;
+            var deslocamentoInput = parseInt(document.getElementById("deslocamentoInput").value);
+            var resultadoElement = document.getElementById("resultado");
+
+            if (!cifraInput || isNaN(deslocamentoInput)) {
+                resultadoElement.textContent = "Por favor, insira a mensagem cifrada e o deslocamento.";
+                return;
+            }
+
+            var textoDecifrado = decifrarCesarJS(cifraInput, deslocamentoInput);
+            resultadoElement.textContent = "Texto Original: " + textoDecifrado;
+        }
+
+        function decifrarCesarJS(cifra, deslocamento) {
+            var textoDecifrado = "";
+
+            for (var i = 0; i < cifra.length; i++) {
+                var char = cifra[i];
+                if (char.match(/[a-z]/i)) {
+                    var isUpperCase = char === char.toUpperCase();
+                    char = char.toLowerCase();
+                    var charDecifrado = String.fromCharCode((char.charCodeAt(0) - deslocamento - 'a'.charCodeAt(0) + 26) % 
